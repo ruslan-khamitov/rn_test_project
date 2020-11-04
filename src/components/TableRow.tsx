@@ -16,7 +16,6 @@ export interface TableRowProps {
 
 export default (props: TableRowProps) => {
   const {row} = props;
-  console.log(row);
 
   const width = Dimensions.get('window').width;
   return (

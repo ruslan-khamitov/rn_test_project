@@ -16,6 +16,7 @@ import {StyleSheet, StatusBar} from 'react-native';
 import 'react-native-gesture-handler';
 import About from './src/screens/About';
 import Stock from './src/screens/Stock';
+import {TickerProvider} from './src/TickerContext';
 
 declare const global: {HermesInternal: null | {}};
 
@@ -25,14 +26,16 @@ const App = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
-      <SafeAreaProvider>
-        <NavigationContainer>
-          <Tab.Navigator>
-            <Tab.Screen name="О приложении" component={About} />
-            <Tab.Screen name="Котировки" component={Stock} />
-          </Tab.Navigator>
-        </NavigationContainer>
-      </SafeAreaProvider>
+      <TickerProvider>
+        <SafeAreaProvider>
+          <NavigationContainer>
+            <Tab.Navigator>
+              <Tab.Screen name="О приложении" component={About} />
+              <Tab.Screen name="Котировки" component={Stock} />
+            </Tab.Navigator>
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </TickerProvider>
     </>
   );
 };

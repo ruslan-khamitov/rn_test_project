@@ -1,27 +1,43 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Text} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
 import Table from '../components/Table';
+import {useTickerStore} from '../TickerContext';
+import {observer} from 'mobx-react-lite';
+import {useIsFocused} from '@react-navigation/native';
+import useInterval from '../hooks/useInterval';
 
-export default () => {
-  const [data, setData] = useState([]);
+export default observer(() => {
+  const tickerStore = useTickerStore();
+
+  const isFocused = useIsFocused();
+
   useEffect(() => {
-    if (data.length !== 0) {
+    if (tickerStore?.isEmpty) {
+      tickerStore.updateData();
+    }
+  }, [tickerStore]);
+
+  useInterval(() => {
+    if (!isFocused) {
       return;
     }
-    fetch('https://poloniex.com/public?command=returnTicker')
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setData(data);
-      });
-  });
+    tickerStore?.updateData();
+  }, 5000);
+
   return (
     <SafeAreaView>
-      <Text style={{fontSize: 20, fontWeight: 'bold', paddingBottom: 10, marginLeft: 10}}>
-        Котировки
-      </Text>
-      <Table data={data} />
+      <Text style={StockStyles.header}>Котировки</Text>
+      <Table data={tickerStore?.handledData ?? []} />
     </SafeAreaView>
   );
-};
+});
+
+const StockStyles = StyleSheet.create({
+  header: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    paddingBottom: 10,
+    marginLeft: 10,
+  },
+});
