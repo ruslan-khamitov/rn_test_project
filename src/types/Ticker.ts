@@ -15,4 +15,10 @@ export interface HandledTicker extends UnhandledTicker {
   ticker: string;
 }
 
-export type UnhandledTickerObj = Record<string, UnhandledTicker>;
+export interface ErrorResponse {
+  error: string;
+}
+
+export type CorrectResponse = Record<string, UnhandledTicker>;
+
+export type ServerResponse = CorrectResponse | ErrorResponse;

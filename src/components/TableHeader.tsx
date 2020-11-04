@@ -1,11 +1,13 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import {useTickerStore} from '../TickerContext';
 import {ROW_HEIGHT} from './TableRow';
 
-export default () => {
+export default observer(() => {
   const tickerStore = useTickerStore();
   const isError = tickerStore?.isError ?? false;
+  console.log(tickerStore);
 
   const width = Dimensions.get('window').width - 20;
   return (
@@ -51,7 +53,7 @@ export default () => {
       ) : null}
     </View>
   );
-};
+});
 
 const tableHeaderStyles = StyleSheet.create({
   columnHeading: {

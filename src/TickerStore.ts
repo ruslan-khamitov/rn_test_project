@@ -1,5 +1,5 @@
 import {makeAutoObservable, runInAction} from 'mobx';
-import {HandledTicker, UnhandledTickerObj} from './types/Ticker';
+import {CorrectResponse, ErrorResponse, HandledTicker, ServerResponse} from './types/Ticker';
 
 export enum TickerStoreState {
   Init,
@@ -9,7 +9,7 @@ export enum TickerStoreState {
 }
 
 export default class TickerStore {
-  private data: UnhandledTickerObj = {};
+  private data: CorrectResponse = {};
   private _state = TickerStoreState.Init;
 
   constructor() {
@@ -32,9 +32,17 @@ export default class TickerStore {
   async updateData() {
     this._state = TickerStoreState.Loading;
     try {
-      const json: UnhandledTickerObj = await fetch(
+      const json: ServerResponse = await fetch(
         'https://poloniex.com/public?command=returnTicker',
-      ).then((res) => res.json());
+      ).then((res) => {
+        if (!res.ok) {
+          throw new Error('Ошибка при выполнении запроса');
+        }
+        return res.json();
+      });
+      if (json.error) {
+        throw new Error((json as ErrorResponse).error);
+      }
       // const json: UnhandledTickerObj = {
       //   APPL: {
       //     baseVolume: '1',
@@ -50,7 +58,7 @@ export default class TickerStore {
       //   },
       // };
       runInAction(() => {
-        this.data = json;
+        this.data = json as CorrectResponse;
         this._state = TickerStoreState.Loaded;
       });
     } catch (err) {
