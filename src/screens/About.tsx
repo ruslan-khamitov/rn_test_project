@@ -1,5 +1,13 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import {Text} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 export default () => {
-  return <></>;
+  return (
+    <SafeAreaView>
+      <Text style={{fontSize: 20, fontWeight: 'bold', paddingBottom: 10}}>
+        О приложении
+      </Text>
+    </SafeAreaView>
+  );
 };

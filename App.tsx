@@ -7,7 +7,7 @@
  *
  * @format
  */
-
+import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 
@@ -25,12 +25,14 @@ const App = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
-      <NavigationContainer>
-        <Tab.Navigator>
-          <Tab.Screen name="О приложении" component={About} />
-          <Tab.Screen name="Котировки" component={Stock} />
-        </Tab.Navigator>
-      </NavigationContainer>
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <Tab.Navigator>
+            <Tab.Screen name="О приложении" component={About} />
+            <Tab.Screen name="Котировки" component={Stock} />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
     </>
   );
 };
