@@ -1,15 +1,17 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {CellType, ROW_HEIGHT} from './TableRow';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export interface TableCellProps {
   value: string;
   type: CellType;
   width: number;
+  isAsc?: boolean;
 }
 
 export default (props: TableCellProps) => {
-  const {value, type, width} = props;
+  const {value, type, width, isAsc} = props;
 
   const getValue = (cellValue: string, cellType: CellType): string => {
     if (cellType === CellType.Number) {
@@ -22,6 +24,7 @@ export default (props: TableCellProps) => {
   const justifyContent = isString ? 'flex-start' : 'flex-end';
   const textAlign = isString ? 'left' : 'right';
   const fontWeight = isString ? 'bold' : 'normal';
+  const showArrow = isAsc !== undefined;
   return (
     <View
       style={{
@@ -29,6 +32,13 @@ export default (props: TableCellProps) => {
         justifyContent,
         width,
       }}>
+      {showArrow ? (
+        <Icon
+          name={isAsc ? 'trending-up' : 'trending-down'}
+          size={14}
+          color={isAsc ? '#4CAF50' : '#f44336'}
+        />
+      ) : null}
       <Text
         style={{
           textAlign,
@@ -50,5 +60,6 @@ const tableCellStyles = StyleSheet.create({
   },
   cellText: {
     fontSize: 12,
+    paddingLeft: 5,
   },
 });

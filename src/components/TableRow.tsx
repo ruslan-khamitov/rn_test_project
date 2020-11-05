@@ -18,9 +18,10 @@ export default (props: TableRowProps) => {
   const {item} = props;
 
   const width = Dimensions.get('window').width;
+  const isAsc = parseFloat(item.percentChange) > 0;
   return (
     <View style={tableRowStyles.tableRow}>
-      <TableCell width={width / 4} type={CellType.String} value={item.ticker} />
+      <TableCell isAsc={isAsc} width={width / 4} type={CellType.String} value={item.ticker} />
       <TableCell width={width / 4} type={CellType.Number} value={item.last} />
       <TableCell
         width={width / 4}
