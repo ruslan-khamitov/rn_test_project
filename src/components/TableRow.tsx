@@ -21,7 +21,12 @@ export default (props: TableRowProps) => {
   const isAsc = parseFloat(item.percentChange) > 0;
   return (
     <View style={tableRowStyles.tableRow}>
-      <TableCell isAsc={isAsc} width={width / 4} type={CellType.String} value={item.ticker} />
+      <TableCell
+        isAsc={isAsc}
+        width={width / 4}
+        type={CellType.String}
+        value={item.ticker}
+      />
       <TableCell width={width / 4} type={CellType.Number} value={item.last} />
       <TableCell
         width={width / 4}

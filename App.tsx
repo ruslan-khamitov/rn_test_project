@@ -7,12 +7,12 @@
  *
  * @format
  */
-import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 
 import React from 'react';
-import {StyleSheet, StatusBar} from 'react-native';
+import {StatusBar} from 'react-native';
 import 'react-native-gesture-handler';
 import About from './src/screens/About';
 import Stock from './src/screens/Stock';
