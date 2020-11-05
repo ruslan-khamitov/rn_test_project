@@ -17,6 +17,7 @@ import 'react-native-gesture-handler';
 import About from './src/screens/About';
 import Stock from './src/screens/Stock';
 import {TickerProvider} from './src/TickerContext';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 declare const global: {HermesInternal: null | {}};
 
@@ -29,7 +30,20 @@ const App = () => {
       <TickerProvider>
         <SafeAreaProvider>
           <NavigationContainer>
-            <Tab.Navigator>
+            <Tab.Navigator
+              screenOptions={({route}) => ({
+                tabBarIcon: ({color, size}) => {
+                  let iconName;
+
+                  if (route.name === 'О приложении') {
+                    iconName = 'info';
+                  } else if (route.name === 'Котировки') {
+                    iconName = 'trending-up';
+                  }
+
+                  return <Icon name={iconName} size={size} color={color} />;
+                },
+              })}>
               <Tab.Screen name="О приложении" component={About} />
               <Tab.Screen name="Котировки" component={Stock} />
             </Tab.Navigator>

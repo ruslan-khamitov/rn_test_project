@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {StyleSheet, Text} from 'react-native';
+import {ActivityIndicator, StyleSheet, Text} from 'react-native';
 import Table from '../components/Table';
 import {useTickerStore} from '../TickerContext';
 import {observer} from 'mobx-react-lite';
@@ -29,15 +29,24 @@ export default observer(() => {
     <SafeAreaView>
       <Text style={StockStyles.header}>Котировки</Text>
       <Table data={tickerStore?.handledData ?? []} />
+      {tickerStore?.isLoading ? (
+        <ActivityIndicator style={StockStyles.activityIndicator} />
+      ) : null}
     </SafeAreaView>
   );
 });
 
-const StockStyles = StyleSheet.create({
+export const StockStyles = StyleSheet.create({
   header: {
     fontSize: 20,
     fontWeight: 'bold',
     paddingBottom: 10,
     marginLeft: 10,
+    paddingTop: 5,
+  },
+  activityIndicator: {
+    marginTop: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

@@ -1,8 +1,12 @@
 import {makeAutoObservable, runInAction} from 'mobx';
-import {CorrectResponse, ErrorResponse, HandledTicker, ServerResponse} from './types/Ticker';
+import {
+  CorrectResponse,
+  ErrorResponse,
+  HandledTicker,
+  ServerResponse,
+} from './types/Ticker';
 
 export enum TickerStoreState {
-  Init,
   Loading,
   Loaded,
   Error,
@@ -10,7 +14,7 @@ export enum TickerStoreState {
 
 export default class TickerStore {
   private data: CorrectResponse = {};
-  private _state = TickerStoreState.Init;
+  private _state = TickerStoreState.Loading;
 
   constructor() {
     makeAutoObservable(this);
@@ -22,6 +26,10 @@ export default class TickerStore {
 
   get isError() {
     return this._state === TickerStoreState.Error;
+  }
+
+  get isLoading() {
+    return this._state === TickerStoreState.Loading;
   }
 
   get handledData(): HandledTicker[] {
