@@ -33,6 +33,7 @@ export default (props: TableCellProps) => {
         style={{
           textAlign,
           fontWeight,
+          ...tableCellStyles.cellText,
         }}>
         {getValue(value, type)}
       </Text>
@@ -43,9 +44,11 @@ export default (props: TableCellProps) => {
 const tableCellStyles = StyleSheet.create({
   cell: {
     flex: 1,
-
     flexDirection: 'row',
     alignItems: 'center',
     height: ROW_HEIGHT,
+  },
+  cellText: {
+    fontSize: 12,
   },
 });

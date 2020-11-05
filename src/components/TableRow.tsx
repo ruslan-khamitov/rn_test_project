@@ -11,26 +11,26 @@ export enum CellType {
 export const ROW_HEIGHT = 30;
 
 export interface TableRowProps {
-  row: HandledTicker;
+  item: HandledTicker;
 }
 
 export default (props: TableRowProps) => {
-  const {row} = props;
+  const {item} = props;
 
   const width = Dimensions.get('window').width;
   return (
     <View style={tableRowStyles.tableRow}>
-      <TableCell width={width / 4} type={CellType.String} value={row.ticker} />
-      <TableCell width={width / 4} type={CellType.Number} value={row.last} />
+      <TableCell width={width / 4} type={CellType.String} value={item.ticker} />
+      <TableCell width={width / 4} type={CellType.Number} value={item.last} />
       <TableCell
         width={width / 4}
         type={CellType.Number}
-        value={row.highestBid}
+        value={item.highestBid}
       />
       <TableCell
         width={width / 4}
         type={CellType.Number}
-        value={row.percentChange}
+        value={item.percentChange}
       />
     </View>
   );

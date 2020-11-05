@@ -14,7 +14,7 @@ export default (props: TableProps) => {
     <FlatList<HandledTicker>
       ListHeaderComponent={() => <TableHeader />}
       data={data}
-      renderItem={({item}) => <TableRow row={item} />}
+      renderItem={TableRow}
       keyExtractor={(item) => `${item.id}`}
       stickyHeaderIndices={[0]}
       getItemLayout={(_, index) => ({
